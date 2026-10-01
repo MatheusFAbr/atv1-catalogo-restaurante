@@ -3,45 +3,65 @@ package br.com.pi.catalogorestaurante
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import br.com.pi.catalogorestaurante.ui.catalogo.CatalogoScreen
+import br.com.pi.catalogorestaurante.ui.resumo.ResumoPedidoScreen
 import br.com.pi.catalogorestaurante.ui.theme.CatalogoRestauranteTheme
+import br.com.pi.catalogorestaurante.viewmodel.PedidoViewModel
 
 class MainActivity : ComponentActivity() {
+
+    private val pedidoViewModel: PedidoViewModel by viewModels()
+
+    private var telaAtual by mutableStateOf(Tela.CATALOGO)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContent {
             CatalogoRestauranteTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
+                when (telaAtual) {
+
+                    Tela.CATALOGO -> {
+                        CatalogoScreen(
+                            itens = pedidoViewModel.cardapio,
+                            quantidadeCarrinho = pedidoViewModel.quantidadeCarrinho,
+                            onAdicionarItem = { item ->
+                                pedidoViewModel.adicionarItem(item)
+                            },
+                            onVerPedido = {
+                                telaAtual = Tela.RESUMO
+                            }
+                        )
+                    }
+
+                    Tela.RESUMO -> {
+                        ResumoPedidoScreen(
+                            itens = pedidoViewModel.carrinho,
+                            formaPagamento = pedidoViewModel.formaPagamento,
+                            resumo = pedidoViewModel.resumo,
+                            onFormaPagamentoAlterada = { forma ->
+                                pedidoViewModel.selecionarFormaPagamento(forma)
+                            },
+                            onFinalizarPedido = {
+                                pedidoViewModel.finalizarPedido()
+                            },
+                            onVoltar = {
+                                telaAtual = Tela.CATALOGO
+                            }
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CatalogoRestauranteTheme {
-        Greeting("Android")
-    }
+private enum class Tela {
+    CATALOGO,
+    RESUMO
 }
