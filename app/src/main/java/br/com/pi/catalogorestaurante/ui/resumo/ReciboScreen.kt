@@ -2,11 +2,11 @@ package br.com.pi.catalogorestaurante.ui.resumo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.HorizontalDivider
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +37,7 @@ fun ReciboPedido(
         )
 
         Spacer(modifier = Modifier.height(4.dp))
-        HorizontalDivider()
+        Divider()
         Spacer(modifier = Modifier.height(4.dp))
 
         Row(
@@ -66,7 +66,9 @@ private fun LinhaValor(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(titulo)
+        Text(
+            text = titulo
+        )
 
         Text(
             text = "R$ %.2f".format(valor)
