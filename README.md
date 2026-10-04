@@ -1,267 +1,123 @@
-# 🍽️ Catálogo Interativo de Restaurante
+# Catálogo Interativo de Restaurante
 
-Aplicativo Android desenvolvido como atividade acadêmica da disciplina de **Programação de Dispositivos Móveis**, com o objetivo de simular um catálogo interativo de restaurante, permitindo visualizar o cardápio, adicionar itens ao pedido, selecionar a forma de pagamento e consultar o resumo final da compra.
+Aplicativo Android desenvolvido para a disciplina de Programação de Dispositivos Móveis.
 
-O projeto foi desenvolvido em grupo utilizando **Kotlin**, **Jetpack Compose** e **Material Design 3**, com separação de responsabilidades entre modelagem de dados, regras de negócio e interface gráfica.
+O projeto consiste em um catálogo de restaurante onde o usuário pode visualizar pratos e bebidas, adicionar itens ao pedido, escolher uma forma de pagamento e consultar o resumo da compra.
 
----
+## Funcionalidades
 
-## 📱 Funcionalidades
+- Listagem de pratos e bebidas
+- Adição de itens ao pedido
+- Controle da quantidade de itens
+- Resumo do pedido
+- Seleção da forma de pagamento
+- Pagamento em Dinheiro, Cartão ou Pix
+- Desconto de 10% para pagamento via Pix
+- Taxa de serviço de 10%
+- Cálculo do subtotal e valor final
+- Geração do relatório do pedido no Logcat
 
-O aplicativo permite:
+## Tecnologias
 
-- Visualizar pratos e bebidas disponíveis no cardápio;
-- Consultar nome, descrição, preço e características dos itens;
-- Adicionar produtos ao pedido;
-- Controlar a quantidade de itens adicionados;
-- Visualizar o resumo do pedido;
-- Selecionar a forma de pagamento;
-- Realizar pagamento em **Dinheiro**, **Cartão** ou **Pix**;
-- Aplicar automaticamente **10% de desconto para pagamentos via Pix**;
-- Calcular a taxa de serviço de **10% sobre o subtotal**;
-- Calcular subtotal, desconto, taxa de serviço e valor total;
-- Exibir um recibo com os valores do pedido;
-- Gerar um relatório do pedido no **Logcat**, agrupando os itens por categoria.
+- Kotlin
+- Jetpack Compose
+- Material Design 3
+- Android Studio
+- Git e GitHub
 
----
+## Estrutura do projeto
 
-## 🛠️ Tecnologias utilizadas
-
-- **Kotlin**
-- **Android Studio**
-- **Jetpack Compose**
-- **Material Design 3**
-- **Android SDK**
-- **Gradle**
-- **Git**
-- **GitHub**
-
----
-
-## 🏗️ Estrutura do projeto
-
-O projeto foi organizado separando as diferentes responsabilidades da aplicação:
+O projeto foi dividido em camadas para separar a modelagem dos dados, regras de negócio e interface.
 
 ```text
 br.com.pi.catalogorestaurante
-│
-├── data/
-│   └── CardapioRepository.kt
-│
-├── domain/
-│   ├── CalculadoraPedido.kt
-│   ├── RelatorioPedido.kt
-│   └── ResumoPedido.kt
-│
-├── model/
-│   ├── Bebida.kt
-│   ├── FormaPagamento.kt
-│   ├── ItemCarrinho.kt
-│   ├── ItemMenu.kt
-│   └── Prato.kt
-│
-├── ui/
-│   ├── catalogo/
-│   │   ├── CatalogoScreen.kt
-│   │   └── ItemMenuCard.kt
-│   │
-│   ├── resumo/
-│   │   ├── ItemPedidoRow.kt
-│   │   ├── ReciboScreen.kt
-│   │   ├── ResumoScreen.kt
-│   │   └── SeletorPagamento.kt
-│   │
-│   └── theme/
-│
-├── viewmodel/
-│   └── PedidoViewModel.kt
-│
+├── data
+├── domain
+├── model
+├── ui
+│   ├── catalogo
+│   ├── resumo
+│   └── theme
+├── viewmodel
 └── MainActivity.kt
 ```
 
----
+### Model
 
-## 👥 Integrantes e responsabilidades
+Contém as classes utilizadas para representar os itens do cardápio, pratos, bebidas, formas de pagamento e itens adicionados ao carrinho.
+
+### Domain
+
+Responsável pelas regras de negócio, incluindo os cálculos do pedido e a geração do relatório.
+
+### UI
+
+Contém as telas e componentes desenvolvidos com Jetpack Compose.
+
+### ViewModel
+
+Responsável pelo estado do pedido e pela comunicação entre a interface e as regras de negócio.
+
+## Integrantes
 
 | Integrante | Responsabilidade |
-|---|---|
-| **Matheus Ferrari Abrahão** | Modelagem de dados, estrutura base, repositório de dados e integração da aplicação |
-| **Leonardo de Lima** | Regras de negócio, cálculos do pedido e geração do relatório |
-| **Arthur Fukunaga Fagundes Nepomuceno** | Interface do catálogo e componente visual dos itens |
-| **Vinícius de Souza Camargo Costa** | Interface de resumo do pedido, seleção de pagamento e recibo |
+| --- | --- |
+| Matheus Ferrari Abrahão | Modelagem de dados e integração da aplicação |
+| Leonardo de Lima | Regras de negócio e cálculos do pedido |
+| Arthur Fukunaga Fagundes Nepomuceno | Interface do catálogo |
+| Vinícius de Souza Camargo Costa | Interface de resumo e pagamento |
 
-### Matheus Ferrari Abrahão — Modelagem e integração
+## Regras do pedido
 
-Responsável pela estrutura dos dados utilizados pelo aplicativo, incluindo pratos, bebidas, formas de pagamento e itens do carrinho.
+A taxa de serviço corresponde a **10% do subtotal**.
 
-Também realizou a integração da aplicação por meio do `PedidoViewModel`, `CardapioRepository` e `MainActivity`.
+Para pagamentos via **Pix**, é aplicado um desconto de **10% sobre o subtotal**.
 
-### Leonardo de Lima — Regras de negócio
-
-Responsável pela camada de domínio da aplicação, incluindo:
-
-- cálculo do subtotal;
-- taxa de serviço;
-- desconto de acordo com a forma de pagamento;
-- cálculo do valor final;
-- geração do relatório do pedido no Logcat.
-
-### Arthur Fukunaga Fagundes Nepomuceno — Catálogo
-
-Responsável pela interface principal do cardápio, incluindo:
-
-- listagem dos itens;
-- apresentação dos pratos e bebidas;
-- componente reutilizável para os itens do cardápio;
-- interação para adicionar produtos ao pedido.
-
-### Vinícius de Souza Camargo Costa — Resumo e pagamento
-
-Responsável pela interface de finalização do pedido, incluindo:
-
-- listagem dos itens selecionados;
-- resumo dos valores;
-- seleção da forma de pagamento;
-- apresentação do recibo do pedido.
-
----
-
-## 💰 Regras de cálculo
-
-O aplicativo utiliza as seguintes regras para calcular o pedido:
-
-### Subtotal
-
-O subtotal corresponde à soma dos valores de todos os itens considerando suas respectivas quantidades.
+O valor final é calculado da seguinte forma:
 
 ```text
-Subtotal = Σ (preço × quantidade)
+Total = Subtotal + Taxa de Serviço - Desconto
 ```
 
-### Taxa de serviço
+## Cenário de teste
 
-É aplicada uma taxa de serviço de **10% sobre o subtotal**.
-
-```text
-Taxa de serviço = subtotal × 10%
-```
-
-### Desconto via Pix
-
-Pedidos pagos utilizando **Pix** recebem **10% de desconto sobre o subtotal**.
-
-```text
-Desconto Pix = subtotal × 10%
-```
-
-### Total
-
-```text
-Total = subtotal + taxa de serviço - desconto
-```
-
----
-
-## 🧪 Cenário de validação
-
-Para validar as regras da aplicação, pode ser utilizado o seguinte pedido:
+Para validação dos cálculos foi utilizado o seguinte pedido:
 
 | Item | Quantidade | Valor |
-|---|---:|---:|
+| --- | ---: | ---: |
 | Pizza Margherita | 1 | R$ 42,00 |
 | Feijoada completa | 1 | R$ 58,00 |
 | Suco de laranja | 1 | R$ 12,00 |
 
-Resultado esperado utilizando **Pix**:
+Com pagamento via Pix:
 
 ```text
-Subtotal:            R$ 112,00
-Taxa de serviço:     R$  11,20
-Desconto Pix:        R$  11,20
---------------------------------
-Total:               R$ 112,00
+Subtotal:        R$ 112,00
+Taxa de serviço: R$  11,20
+Desconto:        R$  11,20
+Total:           R$ 112,00
 ```
 
-Esse cenário demonstra que tanto a taxa de serviço quanto o desconto do Pix são calculados sobre o subtotal.
+## Execução
 
----
+1. Clone o repositório.
+2. Abra o projeto no Android Studio.
+3. Aguarde a sincronização do Gradle.
+4. Inicie um emulador Android ou conecte um dispositivo físico.
+5. Execute o aplicativo.
 
-## 📸 Telas da aplicação
+## Capturas de tela
+
+As capturas das principais telas da aplicação serão adicionadas nesta seção.
 
 ### Catálogo
 
-> Adicionar aqui a captura de tela da tela de catálogo.
-
-<!-- Exemplo:
-![Tela de Catálogo](docs/catalogo.png)
--->
+<!-- ![Catálogo](docs/catalogo.png) -->
 
 ### Resumo do pedido
 
-> Adicionar aqui a captura de tela da tela de resumo do pedido.
+<!-- ![Resumo](docs/resumo.png) -->
 
-<!-- Exemplo:
-![Resumo do Pedido](docs/resumo.png)
--->
+### Logcat
 
----
-
-## 📋 Relatório no Logcat
-
-Ao finalizar o pedido, a aplicação gera um relatório no **Logcat**, apresentando os itens agrupados por categoria e os valores calculados.
-
-> Adicionar aqui uma captura de tela do Logcat após executar o cenário de validação.
-
-<!-- Exemplo:
-![Relatório Logcat](docs/logcat.png)
--->
-
----
-
-## 🔄 Fluxo da aplicação
-
-```text
-Catálogo
-   │
-   ├── Visualizar pratos e bebidas
-   │
-   └── Adicionar itens
-            │
-            ▼
-      PedidoViewModel
-            │
-            ▼
-     Resumo do pedido
-            │
-            ├── Selecionar pagamento
-            │
-            ├── Calcular valores
-            │
-            └── Finalizar pedido
-                     │
-                     ▼
-              Relatório / Logcat
-```
-
----
-
-## 📚 Objetivo acadêmico
-
-O desenvolvimento deste projeto teve como objetivo aplicar conceitos de desenvolvimento Android com Kotlin, incluindo:
-
-- orientação a objetos;
-- modelagem de dados;
-- separação de responsabilidades;
-- regras de negócio;
-- gerenciamento de estado;
-- interfaces declarativas com Jetpack Compose;
-- componentes reutilizáveis;
-- Material Design 3;
-- trabalho colaborativo utilizando Git e GitHub;
-- branches, commits, Pull Requests e revisão de código.
-
----
-
-## 📄 Licença
-
-Projeto desenvolvido exclusivamente para fins acadêmicos.
+<!-- ![Logcat](docs/logcat.png) -->
